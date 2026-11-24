@@ -42,8 +42,8 @@ test("checkbox ต้องสะท้อนค่า agreed", () => {
 
 // ------------------------------------------------
 // ข้อ 3: ปุ่มสมัครต้อง disabled เมื่อยังไม่ยอมรับ และ enabled เมื่อยอมรับแล้ว
-// แนวทาง: render สองครั้งใน test เดียวไม่สะดวก แยกเป็นสอง test หรือใช้ rerender ก็ได้
-//          (ที่นี่แยกเป็นสอง test ด้วย test.todo อีกตัวด้านล่างได้เลย)
+// แนวทาง: แยกเป็นสอง test (agreed={false} หนึ่งอัน และ agreed={true} อีกอัน)
+//          ใช้ getByRole("button", { name: "สมัคร" }) แล้ว toBeDisabled() / toBeEnabled()
 // ------------------------------------------------
 test("ปุ่มสมัคร disabled เมื่อ agreed เป็น false", () => {
   render(<SignupFields agreed={false} email="" />);
