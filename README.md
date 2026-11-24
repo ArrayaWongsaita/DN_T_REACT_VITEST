@@ -9,11 +9,11 @@ repo นี้คือแบบฝึกหัด 17 บท สำหรับ�
 ```bash
 git clone https://github.com/ArrayaWongsaita/DN_T_REACT_VITEST.git
 cd DN_T_REACT_VITEST
-npm install
-npm test setup-check   # ต้องขึ้น 2 passed ถ้าเห็นแบบนี้ แปลว่าติดตั้งสำเร็จ
+pnpm install
+pnpm test setup-check   # ต้องขึ้น 2 passed ถ้าเห็นแบบนี้ แปลว่าติดตั้งสำเร็จ
 ```
 
-ต้องใช้ Node 20 ขึ้นไป
+ต้องใช้ Node 20 ขึ้นไป และ [pnpm](https://pnpm.io/installation) (ถ้ายังไม่มี: `npm i -g pnpm`)
 
 ## วิธีทำแบบฝึกหัด
 
@@ -26,14 +26,14 @@ npm test setup-check   # ต้องขึ้น 2 passed ถ้าเห็น
 ## วิธีรัน
 
 ```bash
-npm test                          # รันทุกบท
-npm test lessons/01               # รันเฉพาะบท 01
-npm run test:watch                # รันซ้ำอัตโนมัติทุกครั้งที่บันทึกไฟล์
+pnpm test                          # รันทุกบท
+pnpm test lessons/01               # รันเฉพาะบท 01
+pnpm test:watch                # รันซ้ำอัตโนมัติทุกครั้งที่บันทึกไฟล์
 ```
 
 ## วิธีอ่านผล
 
-- `todo` = ข้อที่ยังไม่ได้เขียน ยังไม่นับว่าผ่าน (ไม่ทำให้ `npm test` ล้ม)
+- `todo` = ข้อที่ยังไม่ได้เขียน ยังไม่นับว่าผ่าน (ไม่ทำให้ `pnpm test` ล้ม)
 - `✓` = test ผ่าน
 - `✕` = test ไม่ผ่าน ดูส่วน **Expected** (ค่าที่เราคาดหวัง) เทียบกับ **Received** (ค่าที่ได้จริง) และ error ที่บอกว่า "Unable to find an element..." แปลว่าหา element ไม่เจอ
 - ถ้า error ขึ้นข้อความ DOM ยาวๆ ให้ไล่ดูว่าบนหน้า (jsdom) มีอะไรอยู่จริง
