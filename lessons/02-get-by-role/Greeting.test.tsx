@@ -22,21 +22,27 @@ import { Greeting } from "./Greeting";
 // ข้อ 1: Greeting name="Mali" ต้องมี heading ที่เขียนว่า "สวัสดี Mali"
 // แนวทาง: getByRole("heading", { name: "สวัสดี Mali" })
 // ------------------------------------------------
-test.todo("heading ต้องแสดงชื่อ Mali");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("heading ต้องแสดงชื่อ Mali", () => {
+  render(<Greeting name="Mali" />);
+  expect(screen.getByRole("heading", { name: "สวัสดี Mali" })).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: ต้องมีปุ่มชื่อ "ทักทาย"
 // แนวทาง: getByRole("button", { name: "ทักทาย" })
 // ------------------------------------------------
-test.todo("ต้องมีปุ่มทักทาย");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("ต้องมีปุ่มทักทาย", () => {
+  render(<Greeting name="Mali" />);
+  expect(screen.getByRole("button", { name: "ทักทาย" })).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 3: เปลี่ยน props เป็น name="Somchai" heading ต้องเปลี่ยนตาม
 // แนวทาง: render อีกชื่อหนึ่งใน test นี้ (props ต่างกัน = ผลต่างกัน)
 // ------------------------------------------------
-test.todo("เปลี่ยนชื่อเป็น Somchai แล้ว heading เปลี่ยนตาม");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("เปลี่ยนชื่อเป็น Somchai แล้ว heading เปลี่ยนตาม", () => {
+  render(<Greeting name="Somchai" />);
+  expect(screen.getByRole("heading", { name: "สวัสดี Somchai" })).toBeInTheDocument();
+});

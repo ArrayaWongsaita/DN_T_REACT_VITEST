@@ -23,21 +23,27 @@ import { PriceTag } from "./PriceTag";
 // ข้อ 1: ไม่ส่ง currency ต้องได้ "250 THB"
 // แนวทาง: render(<PriceTag price={250} />) แล้วตรวจ element ด้วย toHaveTextContent("250 THB")
 // ------------------------------------------------
-test.todo("ไม่ส่ง currency ต้องแสดง 250 THB");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("ไม่ส่ง currency ต้องแสดง 250 THB", () => {
+  render(<PriceTag price={250} />);
+  expect(screen.getByRole("paragraph")).toHaveTextContent("250 THB");
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: ส่ง currency="USD" ต้องได้ "9 USD"
 // แนวทาง: ส่ง props เพิ่ม currency="USD"
 // ------------------------------------------------
-test.todo("ส่ง currency USD ต้องแสดง 9 USD");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("ส่ง currency USD ต้องแสดง 9 USD", () => {
+  render(<PriceTag price={9} currency="USD" />);
+  expect(screen.getByRole("paragraph")).toHaveTextContent("9 USD");
+});
 
 
 // ------------------------------------------------
 // ข้อ 3: ข้อความต้องมีตัวเลขอยู่ด้วย
 // แนวทาง: toHaveTextContent(/\d+/)
 // ------------------------------------------------
-test.todo("ข้อความต้องมีตัวเลข");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("ข้อความต้องมีตัวเลข", () => {
+  render(<PriceTag price={100} />);
+  expect(screen.getByRole("paragraph")).toHaveTextContent(/\d+/);
+});

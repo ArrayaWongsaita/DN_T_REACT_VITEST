@@ -22,21 +22,27 @@ import { Hello } from "./Hello";
 // ข้อ 1: Hello ต้องแสดงข้อความ "Hello, React!"
 // แนวทาง: render(<Hello />) แล้ว expect(screen.getByText(...)).toBeInTheDocument()
 // ------------------------------------------------
-test.todo("Hello ต้องแสดงข้อความ Hello, React!");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("Hello ต้องแสดงข้อความ Hello, React!", () => {
+  render(<Hello />);
+  expect(screen.getByText("Hello, React!")).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: ค้นหาด้วย regex ไม่สนตัวพิมพ์เล็กใหญ่
 // แนวทาง: getByText รับ regular expression ได้ เช่น /hello/i (i = ไม่สนตัวพิมพ์เล็กใหญ่)
 // ------------------------------------------------
-test.todo("หาข้อความ hello ได้ด้วย regex /hello/i");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("หาข้อความ hello ได้ด้วย regex /hello/i", () => {
+  render(<Hello />);
+  expect(screen.getByText(/hello/i)).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 3: ข้อความนั้นต้องอยู่ใน tag h1
 // แนวทาง: getByText คืน element กลับมา ใช้ .tagName ดูชื่อ tag (ได้ตัวพิมพ์ใหญ่ เช่น "H1") แล้ว toBe(...)
 // ------------------------------------------------
-test.todo("ข้อความ Hello, React! ต้องอยู่ใน tag h1");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("ข้อความ Hello, React! ต้องอยู่ใน tag h1", () => {
+  render(<Hello />);
+  expect(screen.getByText("Hello, React!").tagName).toBe("H1");
+});
