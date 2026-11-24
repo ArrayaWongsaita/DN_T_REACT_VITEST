@@ -1,4 +1,4 @@
-import { test, expect, vi } from "vitest";
+import { test, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BackButton } from "./BackButton";
@@ -33,16 +33,24 @@ vi.mock("next/navigation", () => ({
 // ข้อ 1: กด "ย้อนกลับ" router.back ต้องถูกเรียก 1 ครั้ง
 // แนวทาง: render(<BackButton />) กดปุ่ม แล้ว expect(back).toHaveBeenCalledTimes(1)
 // ------------------------------------------------
-test.todo("กดย้อนกลับต้องเรียก router.back 1 ครั้ง");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("กดย้อนกลับต้องเรียก router.back 1 ครั้ง", async () => {
+  const user = userEvent.setup();
+  render(<BackButton />);
+  await user.click(screen.getByRole("button", { name: "ย้อนกลับ" }));
+  expect(back).toHaveBeenCalledTimes(1);
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: กด "บันทึก" router.push ต้องถูกเรียกด้วย "/done"
 // แนวทาง: render(<SaveAndGo />) กดปุ่ม แล้ว toHaveBeenCalledWith("/done")
 // ------------------------------------------------
-test.todo("กดบันทึกต้องพาไป /done");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("กดบันทึกต้องพาไป /done", async () => {
+  const user = userEvent.setup();
+  render(<SaveAndGo />);
+  await user.click(screen.getByRole("button", { name: "บันทึก" }));
+  expect(push).toHaveBeenCalledWith("/done");
+});
 
 
 // ------------------------------------------------
@@ -51,5 +59,13 @@ test.todo("กดบันทึกต้องพาไป /done");
 //          แล้วเขียน test ที่กด "ย้อนกลับ" และตรวจว่า back ถูกเรียก "1 ครั้ง" พอดี
 //          (ข้อ 1 กดไปแล้ว 1 ครั้ง ถ้าไม่ล้างค่า จะนับเป็น 2)
 // ------------------------------------------------
-test.todo("ล้าง mock ก่อนทุก test จึงนับเริ่มจาก 0");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
+test("ล้าง mock ก่อนทุก test จึงนับเริ่มจาก 0", async () => {
+  const user = userEvent.setup();
+  render(<BackButton />);
+  await user.click(screen.getByRole("button", { name: "ย้อนกลับ" }));
+  expect(back).toHaveBeenCalledTimes(1);
+});
