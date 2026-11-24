@@ -20,21 +20,29 @@ import { FruitList } from "./FruitList";
 // ข้อ 1: ส่ง 3 ผลไม้ ต้องมี 3 รายการ
 // แนวทาง: getAllByRole("listitem") แล้ว toHaveLength(3)
 // ------------------------------------------------
-test.todo("ส่ง 3 ผลไม้ ต้องมี 3 รายการ");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("ส่ง 3 ผลไม้ ต้องมี 3 รายการ", () => {
+  render(<FruitList items={["ส้ม", "กล้วย", "องุ่น"]} />);
+  expect(screen.getAllByRole("listitem")).toHaveLength(3);
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: รายการแรกต้องเป็นผลไม้ตัวแรกที่ส่งเข้าไป
 // แนวทาง: เก็บผลลัพธ์ getAllByRole ไว้ในตัวแปร แล้ว expect(ตัวแปร[0]).toHaveTextContent(...)
 // ------------------------------------------------
-test.todo("รายการแรกต้องเป็นผลไม้ตัวแรก");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("รายการแรกต้องเป็นผลไม้ตัวแรก", () => {
+  render(<FruitList items={["ส้ม", "กล้วย", "องุ่น"]} />);
+  const rows = screen.getAllByRole("listitem");
+  expect(rows[0]).toHaveTextContent("ส้ม");
+});
 
 
 // ------------------------------------------------
 // ข้อ 3: ส่ง array ว่าง ต้องเห็นข้อความ "ไม่มีรายการ" และไม่มี list
 // แนวทาง: getByText สำหรับข้อความ และ queryByRole("list") + .not.toBeInTheDocument() สำหรับ list
 // ------------------------------------------------
-test.todo("array ว่างต้องแสดงข้อความ ไม่มีรายการ");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("array ว่างต้องแสดงข้อความ ไม่มีรายการ", () => {
+  render(<FruitList items={[]} />);
+  expect(screen.getByText("ไม่มีรายการ")).toBeInTheDocument();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});

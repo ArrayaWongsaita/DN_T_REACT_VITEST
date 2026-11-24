@@ -21,16 +21,23 @@ import { SignupFields } from "./SignupFields";
 // ข้อ 1: ส่ง email="mali@example.com" ช่องอีเมลต้องมีค่านั้น
 // แนวทาง: getByLabelText("อีเมล") แล้ว toHaveValue(...)
 // ------------------------------------------------
-test.todo("ช่องอีเมลต้องแสดงค่าที่ส่งเข้าไป");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("ช่องอีเมลต้องแสดงค่าที่ส่งเข้าไป", () => {
+  render(<SignupFields agreed={false} email="mali@example.com" />);
+  expect(screen.getByLabelText("อีเมล")).toHaveValue("mali@example.com");
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: agreed={true} checkbox ต้องถูกติ๊ก ส่วน agreed={false} ต้องไม่ถูกติ๊ก
 // แนวทาง: getByRole("checkbox", { name: "ยอมรับเงื่อนไข" }) แล้ว toBeChecked() / .not.toBeChecked()
 // ------------------------------------------------
-test.todo("checkbox ต้องสะท้อนค่า agreed");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("checkbox ต้องสะท้อนค่า agreed", () => {
+  const { unmount } = render(<SignupFields agreed={true} email="" />);
+  expect(screen.getByRole("checkbox", { name: "ยอมรับเงื่อนไข" })).toBeChecked();
+  unmount();
+  render(<SignupFields agreed={false} email="" />);
+  expect(screen.getByRole("checkbox", { name: "ยอมรับเงื่อนไข" })).not.toBeChecked();
+});
 
 
 // ------------------------------------------------
@@ -38,8 +45,12 @@ test.todo("checkbox ต้องสะท้อนค่า agreed");
 // แนวทาง: render สองครั้งใน test เดียวไม่สะดวก แยกเป็นสอง test หรือใช้ rerender ก็ได้
 //          (ที่นี่แยกเป็นสอง test ด้วย test.todo อีกตัวด้านล่างได้เลย)
 // ------------------------------------------------
-test.todo("ปุ่มสมัคร disabled เมื่อ agreed เป็น false");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("ปุ่มสมัคร disabled เมื่อ agreed เป็น false", () => {
+  render(<SignupFields agreed={false} email="" />);
+  expect(screen.getByRole("button", { name: "สมัคร" })).toBeDisabled();
+});
 
-test.todo("ปุ่มสมัคร enabled เมื่อ agreed เป็น true");
-// 👉 เขียน test ของข้อ 3 (ต่อ) ตรงนี้
+test("ปุ่มสมัคร enabled เมื่อ agreed เป็น true", () => {
+  render(<SignupFields agreed={true} email="" />);
+  expect(screen.getByRole("button", { name: "สมัคร" })).toBeEnabled();
+});
