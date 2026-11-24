@@ -29,21 +29,33 @@ import { Counter } from "./Counter";
 // ข้อ 1: เริ่มต้นต้องแสดง "Count: 0"
 // แนวทาง: ยังไม่ต้องกดอะไร แค่ render แล้วตรวจ (ไม่ต้อง async ก็ได้)
 // ------------------------------------------------
-test.todo("เริ่มต้นต้องแสดง Count: 0");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("เริ่มต้นต้องแสดง Count: 0", () => {
+  render(<Counter />);
+  expect(screen.getByText("Count: 0")).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: กด +1 สองครั้ง ต้องได้ "Count: 2"
 // แนวทาง: await user.click(...) สองบรรทัด แล้วตรวจด้วย getByText หรือ toHaveTextContent
 // ------------------------------------------------
-test.todo("กด +1 สองครั้งต้องได้ Count: 2");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("กด +1 สองครั้งต้องได้ Count: 2", async () => {
+  const user = userEvent.setup();
+  render(<Counter />);
+  await user.click(screen.getByRole("button", { name: "+1" }));
+  await user.click(screen.getByRole("button", { name: "+1" }));
+  expect(screen.getByText("Count: 2")).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 3: render <Counter initial={5} /> กด +1 แล้วกดรีเซ็ต ต้องกลับมาเป็น "Count: 5"
 // แนวทาง: ปุ่มรีเซ็ตหาด้วย getByRole("button", { name: "รีเซ็ต" })
 // ------------------------------------------------
-test.todo("กดรีเซ็ตต้องกลับไปค่า initial");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("กดรีเซ็ตต้องกลับไปค่า initial", async () => {
+  const user = userEvent.setup();
+  render(<Counter initial={5} />);
+  await user.click(screen.getByRole("button", { name: "+1" }));
+  await user.click(screen.getByRole("button", { name: "รีเซ็ต" }));
+  expect(screen.getByText("Count: 5")).toBeInTheDocument();
+});
