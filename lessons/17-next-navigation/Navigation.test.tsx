@@ -1,4 +1,4 @@
-import { test, expect, vi, beforeEach } from "vitest";
+import { test, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BackButton } from "./BackButton";
@@ -59,5 +59,8 @@ test("กดบันทึกต้องพาไป /done", async () => {
 // แนวทาง: render(<SaveAndGo />) แล้วยังไม่กดอะไร ตรวจว่า back ยัง "ไม่ถูกเรียก" และ push ยัง "ไม่ถูกเรียก"
 //          ด้วย expect(...).not.toHaveBeenCalled()
 // ------------------------------------------------
-test.todo("test ใหม่ต้องเริ่มนับ mock จาก 0");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("test ใหม่ต้องเริ่มนับ mock จาก 0", () => {
+  render(<SaveAndGo />);
+  expect(back).not.toHaveBeenCalled();
+  expect(push).not.toHaveBeenCalled();
+});
