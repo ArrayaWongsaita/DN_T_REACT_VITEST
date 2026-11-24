@@ -24,21 +24,31 @@ import { ThemeToggle } from "./ThemeToggle";
 // ข้อ 1: render ด้วย renderWithTheme ธีมเริ่มต้นต้องเป็น light (ปุ่มเขียนว่า "ธีม: light")
 // แนวทาง: getByRole("button", { name: "ธีม: light" })
 // ------------------------------------------------
-test.todo("ธีมเริ่มต้นต้องเป็น light");
-// 👉 เขียน test ของข้อ 1 ตรงนี้
+test("ธีมเริ่มต้นต้องเป็น light", () => {
+  renderWithTheme(<ThemeToggle />);
+  expect(screen.getByRole("button", { name: "ธีม: light" })).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 2: กดปุ่ม ปุ่มต้องเปลี่ยนเป็น "ธีม: dark" และกดอีกครั้งกลับเป็น "ธีม: light"
 // แนวทาง: await user.click(...) สองครั้ง ตรวจหลังแต่ละครั้ง
 // ------------------------------------------------
-test.todo("กดปุ่มแล้วธีมสลับไปมา");
-// 👉 เขียน test ของข้อ 2 ตรงนี้
+test("กดปุ่มแล้วธีมสลับไปมา", async () => {
+  const user = userEvent.setup();
+  renderWithTheme(<ThemeToggle />);
+  await user.click(screen.getByRole("button"));
+  expect(screen.getByRole("button", { name: "ธีม: dark" })).toBeInTheDocument();
+  await user.click(screen.getByRole("button"));
+  expect(screen.getByRole("button", { name: "ธีม: light" })).toBeInTheDocument();
+});
 
 
 // ------------------------------------------------
 // ข้อ 3: renderWithTheme(<ThemeToggle />, "dark") ต้องเริ่มที่ "ธีม: dark"
 // แนวทาง: ส่ง argument ตัวที่สองเข้าไป
 // ------------------------------------------------
-test.todo("เริ่มต้นเป็น dark ได้");
-// 👉 เขียน test ของข้อ 3 ตรงนี้
+test("เริ่มต้นเป็น dark ได้", () => {
+  renderWithTheme(<ThemeToggle />, "dark");
+  expect(screen.getByRole("button", { name: "ธีม: dark" })).toBeInTheDocument();
+});
